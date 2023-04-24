@@ -29,7 +29,6 @@
         });
 
     function setPlayerInfo(playerData) {
-        console.log(playerData);
         playerData.forEach((player) => {
             let person = {
                 'name' : player.player_name,
@@ -43,7 +42,6 @@
     }
 
     function setChampionInfo(championKeys) {
-        console.log(championKeys);
         championKeys.forEach((champion) => {
             let champ = {
                 'name' : champion.name,
@@ -63,7 +61,7 @@
 
         html += `<div class="friendTileBottom">`
         html += `<p>${player.tier} ${player.rank} ${player.leaguePoints}</p>`
-        html += `<p>Wins: ${player.rankWins} Losses:  ${player.rankLosses} Hotstreak? ${player.hotStreak}</p>`
+        html += `<p>Wins: ${player.rankWins} Losses:  ${player.rankLosses}</p>`
         html += `</div>`//end friendTileBottom
 
         //Friend mid section, name and icon
@@ -85,21 +83,52 @@
         playerInfo.forEach((player) => {
             for(let i = 0; i < 1; i++){
                 let summonerID = player.summonerID[i]
-                //getPlayerIconInfo(player, summonerID);
-                //getPlayerRankInfo(player, summonerID);
-                getPlayerSummonerInfo(player, summonerID);
+                displayPlayerInfo(player);
             }
         });
     }
 
-    function getChampionInfo(championKey){
-        console.log("Champ key: " + championKey)
-        championInfo.forEach((champion) => {
-            if (parseInt(champion.key) === parseInt(championKey)){
+    function getChampionInfo(championKey) {
+        for (const champion of championInfo) {
+            if (parseInt(champion.key) === parseInt(championKey)) {
                 return champion.name;
             }
+        }
+        console.log("not found");
+        return undefined;
+    }
+
+    function refreshIcons(){
+        playerInfo.forEach((player) => {
+            for(let i = 0; i < 1; i++){
+                let summonerID = player.summonerID[i]
+                getPlayerIconInfo(player, summonerID);
+            }
         });
-        return console.log("not found");
+        mainSection.innerHTML = "";
+        getPlayerInfo();
+    }
+
+    function refreshRanks(){
+        playerInfo.forEach((player) => {
+            for(let i = 0; i < 1; i++){
+                let summonerID = player.summonerID[i]
+                getPlayerRankInfo(player, summonerID);
+            }
+        });
+        mainSection.innerHTML = "";
+        getPlayerInfo();
+    }
+
+    function refreshChamps(){
+        playerInfo.forEach((player) => {
+            for(let i = 0; i < 1; i++){
+                let summonerID = player.summonerID[i]
+                getPlayerSummonerInfo(player, summonerID);
+            }
+        });
+        mainSection.innerHTML = "";
+        getPlayerInfo();
     }
 
     function getPlayerRankInfo(player, summonerID){
@@ -149,7 +178,6 @@
             let championName = '';
             for(let i = 0; i < data.length; i++){
                 championIDs.push(data[i].championId);
-                console.log("championId" + data[i].championId)
                 championName = getChampionInfo(data[i].championId);
                 championNames.push(championName);
                 championLevels.push(data[i].championLevel);
@@ -159,20 +187,38 @@
             player.topChampionNames = championNames;
             player.topChampionLevels = championLevels;
             player.topChampionPoints = championPoints;
-            console.log(championNames);
             displayPlayerInfo(player);
         }).catch(function(error){
             console.log(error);
         });
     }
 
+    function postThis(jsonObject, movieId){
+        fetch(dbUrl + movieId, {
+            method: 'PUT',
+        }).then(() => {
+
+        }).catch(() => {
+                console.log("error");
+        });
+    }
 
     /*
     ========================================
     Variables and Arrays
     ========================================
      */
+    const dbUrl = "https://glitch.com/edit/#!/chain-torch-terrier?path=db.json%3A8%3A20";
     const mainSection = document.querySelector("#mainSection");
+
+    const refreshIconsButton = document.querySelector("#refreshIconsBtn");
+    const refreshChampsButton = document.querySelector("#refreshChampsBtn");
+    const refreshRanksButton = document.querySelector("#refreshRanksBtn");
+
+    refreshIconsButton.addEventListener("click", refreshIcons);
+    refreshChampsButton.addEventListener("click", refreshChamps);
+    refreshRanksButton.addEventListener("click", refreshRanks);
+
     let playerInfo = [];
     let championInfo = [];
 })();

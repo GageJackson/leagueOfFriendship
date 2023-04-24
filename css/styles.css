@@ -366,12 +366,12 @@ select {
     display: flex;
     justify-content: end;
     align-items: end;
-    height: 60px;
+    height: 50px;
     aspect-ratio: 1;
 }
 
 .playerIcon > img {
-     height: 60px;
+     height: 50px;
      aspect-ratio: 1;
      border-radius: 50%;
      border: 2px solid hsl(var(--clr-accent));
@@ -426,13 +426,25 @@ select {
     width: 300px;
     aspect-ratio: 1.7;
 }
+
 .friendTileTop {
-    padding: .25rem;
-    /*background-color: darkslategray;*/
-    background-position: center;
+    padding: 1.5rem 0rem 0rem 0rem;
+    background-position: top;
     background-size: cover;
     border-radius: .5rem .5rem 0 0;
+    position: relative;
 }
+
+.friendTileTop::before {
+    content: "";
+    background: hsl( var(--clr-dark) / 0.25);
+    width: 300px;
+    aspect-ratio: 3.4;
+    border-radius: .5rem .5rem 0 0;
+    position: absolute;
+    margin-top: -1.5rem;
+}
+
 .friendTileMid {
     padding: .5rem;
     border-radius: 1rem;
@@ -441,12 +453,14 @@ select {
     align-self: center;
     display: grid;
     grid-template-columns: 2fr 10fr;
+    align-content: center;
 }
 .friendTileBottom {
-    padding: .25rem;
+    padding: 1.5rem .5rem .5rem .5rem;
     background: hsl( var(--clr-white) / 0.05);
     border-top: 2px solid hsl(var(--clr-accent));
     border-radius: 0 0 .5rem .5rem;
+    height: 100%;
 }
 
 .friendIcon {
@@ -478,5 +492,23 @@ select {
 .fPlayerName {
     font-size: var(--fs-200);
     font-style: italic;
-    color: hsl( var(--clr-white) / 0.25)
+    color: hsl( var(--clr-white) / 0.25);
+}
+
+.refreshBtns ul {
+    justify-content: end;
+    padding-inline: 2rem;
+}
+
+.refreshBtns li {
+    list-style: none;
+}
+
+.refreshBtns button {
+    color: hsl(var(--clr-dark));
+    background-color: hsl(var(--clr-accent));
+    border: none;
+    width: 25px;
+    aspect-ratio: 1;
+    text-align: center;
 }
