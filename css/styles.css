@@ -428,7 +428,9 @@ select {
 }
 .friendTileTop {
     padding: .25rem;
-    background-color: darkslategray;
+    /*background-color: darkslategray;*/
+    background-position: center;
+    background-size: cover;
     border-radius: .5rem .5rem 0 0;
 }
 .friendTileMid {

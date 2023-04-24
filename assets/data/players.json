@@ -18,22 +18,34 @@
   {
     "player_name": "Garret",
     "account_names": [
-      "Gwertle",
       "gvzhnv"
     ],
     "summoner_id": [
-      "kMSf-CU2rdDVgGvCE-zmUsI3EEiMKjBSg78vKZGREs8ZBOE",
       "ffnzCXzM7xH-P7uc82d1YlMNvL8l08WCOIVpjzeeXqXqiOcilQq8OEVpcA"
     ],
     "account_id": [
-      "eHe5UpysqL_wgjHqb4vltLxl_cdADUzQME5k0PfGYjBCKps",
       "bJugrugFdtSI3xICmCPkaDNfdpZ9FMSodxvR7LJiLt7W14I27ARXXYjq"
     ],
     "puu_id": [
-      "8xERpzCDfs2ZmhhxNzwRchJ3XYToRw0SqnOcluSmNfqE9YkKuncxT2686MZrUNqiURvw77PGHqDzuw",
       "16cKrIE9nKSPkTOPzLEvZbjPDigPF3dG-pN4MO1gXDmdpOX6eUPVRLj5iH7Feq82BK8uK0zR7ymn9Q"
     ],
     "role": "JGL"
+  },
+  {
+  "player_name": "Garret",
+  "account_names": [
+  "Gwertle"
+],
+  "summoner_id": [
+  "kMSf-CU2rdDVgGvCE-zmUsI3EEiMKjBSg78vKZGREs8ZBOE"
+],
+  "account_id": [
+  "eHe5UpysqL_wgjHqb4vltLxl_cdADUzQME5k0PfGYjBCKps"
+],
+  "puu_id": [
+  "8xERpzCDfs2ZmhhxNzwRchJ3XYToRw0SqnOcluSmNfqE9YkKuncxT2686MZrUNqiURvw77PGHqDzuw"
+],
+  "role": "JGL"
   },
   {
     "player_name": "Pablo",

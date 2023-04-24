@@ -10,14 +10,26 @@
             getPlayerInfo();
         })
         .then(function (){
-            getPlayerRankInfo();
+            // getPlayerRankInfo();
         })
 
         .catch(function (error){
             console.log(error);
         });
 
+    fetch("/assets/data/championKeys.json")
+        .then(function (res){
+            return res.json();
+        })
+        .then(function (data){
+            setChampionInfo(data);
+        })
+        .catch(function (error){
+            console.log(error);
+        });
+
     function setPlayerInfo(playerData) {
+        console.log(playerData);
         playerData.forEach((player) => {
             let person = {
                 'name' : player.player_name,
@@ -30,16 +42,28 @@
         });
     }
 
+    function setChampionInfo(championKeys) {
+        console.log(championKeys);
+        championKeys.forEach((champion) => {
+            let champ = {
+                'name' : champion.name,
+                'id' : champion.id,
+                'key' : champion.key
+            };
+            championInfo.push(champ);
+        });
+    }
+
     function displayPlayerInfo(player){
         let html = "";
         html += `<div class="friendTile">`
 
-        html += `<div class="friendTileTop">`
+        html += `<div class="friendTileTop"  style="background-image: url('https://ddragon.leagueoflegends.com/cdn/img/champion/splash/${player.topChampionNames[0]}_0.jpg')">`
         html += `</div>`//end friendTileTop
 
         html += `<div class="friendTileBottom">`
         html += `<p>${player.tier} ${player.rank} ${player.leaguePoints}</p>`
-        html += `<p>'Wins: '${player.rankWins} 'Losses: ' ${player.rankLosses} 'Hotstreak? ' ${player.hotStreak}</p>`
+        html += `<p>Wins: ${player.rankWins} Losses:  ${player.rankLosses} Hotstreak? ${player.hotStreak}</p>`
         html += `</div>`//end friendTileBottom
 
         //Friend mid section, name and icon
@@ -58,16 +82,24 @@
     }
 
     function getPlayerInfo(){
-        console.log(playerInfo.length);
         playerInfo.forEach((player) => {
-            for(let i = 0; i < player.summonerID.length; i++){
-                console.log(player.name);
+            for(let i = 0; i < 1; i++){
                 let summonerID = player.summonerID[i]
-                // getPlayerIconInfo(player, summonerID);
+                //getPlayerIconInfo(player, summonerID);
                 //getPlayerRankInfo(player, summonerID);
                 getPlayerSummonerInfo(player, summonerID);
             }
         });
+    }
+
+    function getChampionInfo(championKey){
+        console.log("Champ key: " + championKey)
+        championInfo.forEach((champion) => {
+            if (parseInt(champion.key) === parseInt(championKey)){
+                return champion.name;
+            }
+        });
+        return console.log("not found");
     }
 
     function getPlayerRankInfo(player, summonerID){
@@ -110,13 +142,24 @@
         ).then(function(result){
             return result.json();
         }).then(function(data){
-            console.log(data);
+            let championIDs = [];
+            let championNames = [];
+            let championLevels = [];
+            let championPoints = [];
+            let championName = '';
             for(let i = 0; i < data.length; i++){
-                player.championId = data[i].championId;
-                player.championLevel = data[i].championLevel;
-                player.championPoints = data[i].championPoints;
+                championIDs.push(data[i].championId);
+                console.log("championId" + data[i].championId)
+                championName = getChampionInfo(data[i].championId);
+                championNames.push(championName);
+                championLevels.push(data[i].championLevel);
+                championPoints.push(data[i].championPoints);
             }
-            console.log(player);
+            player.topChampionIDs = championIDs;
+            player.topChampionNames = championNames;
+            player.topChampionLevels = championLevels;
+            player.topChampionPoints = championPoints;
+            console.log(championNames);
             displayPlayerInfo(player);
         }).catch(function(error){
             console.log(error);
@@ -131,4 +174,5 @@
      */
     const mainSection = document.querySelector("#mainSection");
     let playerInfo = [];
+    let championInfo = [];
 })();
