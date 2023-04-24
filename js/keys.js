@@ -54,6 +54,7 @@ RESPONSE
 //https://na1.api.riotgames.com/lol/league/v4/entries/by-summoner/{SUMMONER_ID}?api_key={RIOT_KEY}
 /*
 RESPONSE
+Good ranked info
 {
         "leagueId": "e7a0cf42-a601-4a9a-81dd-5dd23a974c2b",
         "queueType": "RANKED_SOLO_5x5",

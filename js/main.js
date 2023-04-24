@@ -51,11 +51,9 @@
                 $.get(
                     `https://na1.api.riotgames.com/lol/summoner/v4/summoners/${summonerID}?api_key=${RIOT_KEY}`
                 ).done(function(data){
-                    console.log(data);
                     player.profileIconID = data.profileIconId;
                     player.summonerLevel = data.summonerLevel;
                     player.summonerName = data.name;
-                    console.log(player);
                     displayPlayerInfo(player);
                 });
             }

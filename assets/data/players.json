@@ -38,40 +38,32 @@
   {
     "player_name": "Pablo",
     "account_names": [
-      "Inconspicuous",
-      "LablyPowro"
+      "Inconspicuous"
     ],
     "summoner_id": [
-      "BS-Ka_9_uUn_Mb01R2iiaRajdJWK1Xnv6UQjvYaREtkidIk",
-      "foaN1UO0lcHjfuUBzkkQHpRL7feICUo4qEFf1kn9Emm_wyw"
+      "BS-Ka_9_uUn_Mb01R2iiaRajdJWK1Xnv6UQjvYaREtkidIk"
     ],
     "account_id": [
-      "2YHM66Uh3wLfwFc2v_dDIm08TwT_vNE8JUCPsOwxKJlTwJg",
-      "965QUQ8-rLCAovG2GZ5CpRSayGj1EkEEHN0-B-5PdDpKA5I"
+      "2YHM66Uh3wLfwFc2v_dDIm08TwT_vNE8JUCPsOwxKJlTwJg"
     ],
     "puu_id": [
-      "ETNCXFI00EIIyU0Kqknhg8yQMXXPIcRtwjcgMn9CLRGBhuTiPk0Y5eSZMiE4y1vgV17T_kUx6tKQoQ",
-      "H9vNF22NUjLyv6quoU1IBgmy3rVsYzaHvAJxOaJ3iq6ysHGcRQxnNgrE7tl93LQtmtdaJ61yNon7Fw"
+      "ETNCXFI00EIIyU0Kqknhg8yQMXXPIcRtwjcgMn9CLRGBhuTiPk0Y5eSZMiE4y1vgV17T_kUx6tKQoQ"
     ],
     "role": "TOP/SUP"
   },
   {
     "player_name": "Jenny",
     "account_names": [
-      "ETXHarpy",
-      "Atastefulblanket"
+      "ETXHarpy"
     ],
     "summoner_id": [
-      "s7nImWDztci7yTS6oivIuVfMzyfIShFLdAooqPI1shITx14",
-      "WBP1RHBXSsVzojJIXpgoByTXcjGLJSMmQ1UTbFOgTf7Le28"
+      "s7nImWDztci7yTS6oivIuVfMzyfIShFLdAooqPI1shITx14"
     ],
     "account_id": [
-      "sEdWteLeQ5U7w5WV4FZeI8zcm15t0S-9PYR8uLFNOrK9Fw",
-      "kz6oC26qGKRIYY5da-W1_PNB63eE0HLR6l4ASVV-DmKqew"
+      "sEdWteLeQ5U7w5WV4FZeI8zcm15t0S-9PYR8uLFNOrK9Fw"
     ],
     "puu_id": [
-      "Hu0geCS3GciRftSxokl2mAvRCgELp3n3Yq8eidGCQPmAHdCkRkwKzT49tHZdB5lYjD8-K3o0gCOLjw",
-      "tMA5MX9Q3ds2rTxX7FXqnp0nbLJUAhkpedBDKR7Q3BArLcztM8fpib2_vBlMG5hQbTs6ZB1vB5CZWQ"
+      "Hu0geCS3GciRftSxokl2mAvRCgELp3n3Yq8eidGCQPmAHdCkRkwKzT49tHZdB5lYjD8-K3o0gCOLjw"
     ],
     "role": "MID/SUP"
   },
@@ -106,21 +98,5 @@
       "C09Y2tiCz3Up2C80SCFiOwesY3m_YQEPc-Pg1lQzQQLd_tIQHJ6n3cYEvyUFJEb0NRWCDX8HUIvOFg"
     ],
     "role": "ADC/SUP"
-  },
-  {
-    "player_name": "Brig",
-    "account_names": [
-      "rememberorder66"
-    ],
-    "summoner_id": [
-      "xn1p8PIBFKMMpOCJVRFmzxesWvmBE5qp2BpAkwT-hXPZ3QA"
-    ],
-    "account_id": [
-      "Mr98KGv4Mtz_Ew6Q4dqHl8FIA8XI8NSlNH8IA9ctvA7XVQ"
-    ],
-    "puu_id": [
-      "LzEu-eqDUrqcQHv6eef9Ly5rrpQiMCgsEif8AlPAENpJiCSZQX1TIX2Rw5P_VnEWEIElV_VSvLRelw"
-    ],
-    "role": "RAM"
   }
 ]

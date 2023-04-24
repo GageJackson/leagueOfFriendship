@@ -299,7 +299,7 @@ select {
     cursor: pointer;
     padding: var(--underline-gap, .5rem) 0;
     border: 0;
-    border-bottom: .2rem solid hsl( var(--clr-white) / 0 );
+    border-bottom: .1rem solid hsl( var(--clr-white) / 0 );
     background-color: transparent;
 }
 
@@ -343,7 +343,6 @@ select {
 
     .grid-container--home > *:first-child {
         grid-column: 1;
-        background: hsl( var(--clr-white) / 0.05);
     }
 
     .grid-container--home > *:last-child {
@@ -404,6 +403,77 @@ select {
 }
 
 .playerName {
+    font-size: var(--fs-200);
+    font-style: italic;
+    color: hsl( var(--clr-white) / 0.25)
+}
+
+/* ----------------------------- */
+/* Friend  Content               */
+/* ----------------------------- */
+#mainSection {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 2rem;
+}
+
+.friendTile {
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    border-radius: 1rem;
+    position: relative;
+    width: 300px;
+    aspect-ratio: 1.7;
+}
+.friendTileTop {
+    padding: .25rem;
+    background-color: darkslategray;
+    border-radius: .5rem .5rem 0 0;
+}
+.friendTileMid {
+    padding: .5rem;
+    border-radius: 1rem;
+    position: absolute;
+    width: 100%;
+    align-self: center;
+    display: grid;
+    grid-template-columns: 2fr 10fr;
+}
+.friendTileBottom {
+    padding: .25rem;
+    background: hsl( var(--clr-white) / 0.05);
+    border-top: 2px solid hsl(var(--clr-accent));
+    border-radius: 0 0 .5rem .5rem;
+}
+
+.friendIcon {
+    display: flex;
+    justify-content: end;
+    align-items: end;
+    height: 40px;
+    aspect-ratio: 1;
+}
+
+.friendIcon > img {
+    height: 40px;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    border: 2px solid hsl(var(--clr-accent));
+}
+
+.friendNames {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: center;
+}
+
+.fSummonerName {
+    font-size: var(--fs-400);
+}
+
+.fPlayerName {
     font-size: var(--fs-200);
     font-style: italic;
     color: hsl( var(--clr-white) / 0.25)
