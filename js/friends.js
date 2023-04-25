@@ -16,9 +16,6 @@
             setChampInfoArray(data[1]);
         }).then(() => {
             getEveryPlayersRiotInfo();
-        }).then(() => {
-            console.log(playerInfo);
-            displayPlayers();
         }).catch((err) => {
             console.log(err);
         });
@@ -59,14 +56,22 @@
     function getEveryPlayersRiotInfo() {
         let delay = 0;
         for (let player of playerInfo) {
-            setTimeout((player) => {
+            setTimeout(() => {
                 getRiotData(player.summonerID, player)
-            }, delay, player);
+                // console.log("Player out: ");
+                // console.log(player);
+                // console.log(player.summonerID);
+                // console.log("===============================");
+            }, delay);
             delay += 500; // Increase the delay by 500 milliseconds for each player
         }
     }
 
     function getRiotData(summonerID, player) {
+        // console.log("Player in: ");
+        // console.log(player);
+        // console.log(summonerID);
+        // console.log("================");
         Promise.all([
             fetch(`https://na1.api.riotgames.com/lol/league/v4/entries/by-summoner/${summonerID}?api_key=${RIOT_KEY}`),
             fetch(`https://na1.api.riotgames.com/lol/summoner/v4/summoners/${summonerID}?api_key=${RIOT_KEY}`),
@@ -79,6 +84,7 @@
             getPlayerRankInfo(player, data[0]);
             getPlayerIconInfo(player, data[1]);
             getPlayerSummonerInfo(player, data[2]);
+            displayPlayerInfo(player);
         }).catch((err) => {
             console.log(err);
         });
@@ -177,11 +183,6 @@
         }
     }
     function displayPlayerInfo(player){
-        console.log(player);
-        console.log(player.name);
-        console.log(player.tier);
-        console.log(player.topChampionNames);
-        console.log(player.topChampionNames[0]);
         let html = "";
         html += `<div class="friendTile">`
 

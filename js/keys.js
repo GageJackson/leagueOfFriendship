@@ -187,3 +187,46 @@ Currntly Playing Section Idea
 Shows info of anyone currently playing, kinda interesting but might not be worth pursuing
 https://na1.api.riotgames.com/lol/spectator/v4/active-games/by-summoner/{SUMMONER_ID}?api_key={RIOT_KEY}
  */
+
+// function refreshIcons(){
+//     playerInfo.forEach((player) => {
+//         for(let i = 0; i < 1; i++){
+//             let summonerID = player.summonerID[i]
+//             getPlayerIconInfo(player, summonerID);
+//         }
+//     });
+//     mainSection.innerHTML = "";
+//     getPlayerInfo();
+// }
+//
+// function refreshRanks(){
+//     playerInfo.forEach((player) => {
+//         for(let i = 0; i < 1; i++){
+//             let summonerID = player.summonerID[i]
+//             getPlayerRankInfo(player, summonerID);
+//         }
+//     });
+//     mainSection.innerHTML = "";
+//     getPlayerInfo();
+// }
+//
+// function refreshChamps(){
+//     playerInfo.forEach((player) => {
+//         for(let i = 0; i < 1; i++){
+//             let summonerID = player.summonerID[i]
+//             getPlayerSummonerInfo(player, summonerID);
+//         }
+//     });
+//     mainSection.innerHTML = "";
+//     getPlayerInfo();
+// }
+
+
+// function getPlayerInfo2(){
+//     playerInfo.forEach((player) => {
+//         for(let i = 0; i < 1; i++){
+//             let summonerID = player.summonerID[i]
+//             displayPlayerInfo(player);
+//         }
+//     });
+// }
