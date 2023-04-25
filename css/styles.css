@@ -411,7 +411,7 @@ select {
 /* ----------------------------- */
 /* Friend  Content               */
 /* ----------------------------- */
-#mainSection {
+#friendSection {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
