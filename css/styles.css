@@ -5,6 +5,7 @@
 :root {
     /* colors */
     --clr-dark: 230 35% 7%;
+    --clr-md-dark: 230 25% 15%;
     --clr-light: 231 77% 90%;
     --clr-accent: 37, 39%, 39%;
     --clr-white: 0 0% 100%;
@@ -425,24 +426,25 @@ select {
     position: relative;
     width: 300px;
     aspect-ratio: 1.7;
+    background-position: top;
+    background-size: cover;
+}
+
+.friendTile::before {
+    content: "";
+    width: calc(100% + 1rem);
+    height: calc(100% + 1rem);
+    position: absolute;
+    align-self: center;
+    justify-self: center;
+    z-index: 1000;
 }
 
 .friendTileTop {
     padding: 1.5rem 0rem 0rem 0rem;
-    background-position: top;
-    background-size: cover;
     border-radius: .5rem .5rem 0 0;
     position: relative;
-}
-
-.friendTileTop::before {
-    content: "";
-    background: hsl( var(--clr-dark) / 0.25);
-    width: 300px;
-    aspect-ratio: 3.4;
-    border-radius: .5rem .5rem 0 0;
-    position: absolute;
-    margin-top: -1.5rem;
+    background-image: linear-gradient(hsl( var(--clr-dark) / 0),hsl( var(--clr-dark) / .25), hsl( var(--clr-dark) / 1));
 }
 
 .friendTileMid {
@@ -457,10 +459,20 @@ select {
 }
 .friendTileBottom {
     padding: 1.5rem .5rem .5rem .5rem;
-    background: hsl( var(--clr-white) / 0.05);
+    background: hsl( var(--clr-md-dark) / 1);
     border-top: 2px solid hsl(var(--clr-accent));
     border-radius: 0 0 .5rem .5rem;
     height: 100%;
+}
+
+.friendTileTop * {
+    user-select: none;
+}
+.friendTileMid * {
+    user-select: none;
+}
+.friendTileBottom * {
+    user-select: none;
 }
 
 .friendIcon {
@@ -511,4 +523,100 @@ select {
     width: 25px;
     aspect-ratio: 1;
     text-align: center;
+    border-radius: 50%;
+}
+
+/* ----------------------------- */
+/* Friend  Content               */
+/* ----------------------------- */
+.championTile {
+    display: grid;
+    grid-template-rows: 3fr 1fr;
+    border-radius: 1rem;
+    position: relative;
+    width: 150px;
+    aspect-ratio: .5;
+    background-position: top;
+    background-size: cover;
+}
+
+.championTile::before {
+    content: "";
+    width: calc(100% + 1rem);
+    height: calc(100% + 1rem);
+    position: absolute;
+    align-self: center;
+    justify-self: center;
+    z-index: 1000;
+}
+
+.championTileTop {
+    padding: 1.5rem 0rem 0rem 0rem;
+    border-radius: .5rem .5rem 0 0;
+    position: relative;
+    background-image: linear-gradient(hsl( var(--clr-dark) / 0),hsl( var(--clr-dark) / .25), hsl( var(--clr-dark) / 1));
+}
+
+.championTileMid {
+    position: absolute;
+    top: 75%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    display: grid;
+    grid-template-columns: 1fr;
+    align-content: center;
+    justify-items: center;
+
+    padding: .5rem;
+    border-radius: 1rem;
+}
+
+.championTileBottom {
+    padding: 1.5rem .5rem .5rem .5rem;
+    background: hsl( var(--clr-md-dark) / 1);
+    border-top: 2px solid hsl(var(--clr-accent));
+    border-radius: 0 0 .5rem .5rem;
+    height: 100%;
+}
+
+.championTileTop * {
+    user-select: none;
+}
+.championTileMid * {
+    user-select: none;
+}
+.championTileBottom * {
+    user-select: none;
+}
+
+.championIcon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    height: 40px;
+    aspect-ratio: 1;
+
+}
+
+.championIcon > p {
+    text-align: center;
+    z-index: 1000;
+    font-size: var(--fs-600);
+    font-family: var(--ff-serif);
+    font-weight: bold;
+}
+
+.championIcon > div {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    aspect-ratio: 1;
+    border-radius: 50%;
+
+    background-color: hsl(var(--clr-dark));
+    border: 2px solid hsl(var(--clr-accent));
 }

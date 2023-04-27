@@ -15,41 +15,26 @@
             setPlayerInfoArray(data[0]);
             setChampInfoArray(data[1]);
         }).then(() => {
-            getEveryPlayersRiotInfo();
+            displayPlayers();
+
         }).catch((err) => {
             console.log(err);
+        }).finally(() => {
+            createButtons(playerBtns, getDetailedPlayerInfo);
         });
     }
 
     function setPlayerInfoArray(playerData){
         playerInfo = [];
         for(let player of playerData){
-            playerInfo.push(setPlayerNameInfo(player));
+            playerInfo.push(player);
         }
-    }
-    function setPlayerNameInfo(player) {
-        return {
-        'id' : player.id,
-        'name' : player.player_name,
-        'accountID' : player.account_id,
-        'summonerID' : player.summoner_id,
-        'puuID' : player.puu_id,
-        'roles' : player.role
-        };
     }
 
     function setChampInfoArray(champData){
         champInfo = [];
         for(let champ of champData){
-            champInfo.push(setChampionNameInfo(champ));
-        }
-    }
-
-    function setChampionNameInfo(champ) {
-        return {
-            'name': champ.name,
-            'id': champ.id,
-            'key': champ.key
+            champInfo.push(champ);
         }
     }
 
@@ -85,9 +70,21 @@
             getPlayerIconInfo(player, data[1]);
             getPlayerSummonerInfo(player, data[2]);
             displayPlayerInfo(player);
+            saveToDB(player, player.id);
         }).catch((err) => {
             console.log(err);
         });
+    }
+
+    function setPlayerNameInfo(player) {
+        return {
+            'id' : player.id,
+            'name' : player.player_name,
+            'accountID' : player.account_id,
+            'summonerID' : player.summoner_id,
+            'puuID' : player.puu_id,
+            'roles' : player.role
+        };
     }
 
     function getPlayerRankInfo(player, data){
@@ -125,13 +122,18 @@
         player.topChampionPoints = championPoints;
     }
 
-    function getPlayerInfo2(){
-        playerInfo.forEach((player) => {
-            for(let i = 0; i < 1; i++){
-                let summonerID = player.summonerID[i]
-                displayPlayerInfo(player);
-            }
-        });
+    function saveToDB(player, playerID){
+        fetch(dbUrl + playerID, {
+            method: "PUT",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(player)
+        }).then(() => {
+
+        }).catch(() => {
+                console.log("error");
+            });
     }
 
     function getChampionInfo(championKey) {
@@ -177,16 +179,50 @@
         getPlayerInfo();
     }
 
+    function createButtons(btnArray, btnFunction){
+        for(let button of btnArray){
+            let newButton = document.querySelector(button);
+            newButton.addEventListener("click",btnFunction);
+        }
+    }
+    function findBtnId(targetId){
+        let index = targetId.indexOf("-")
+        return targetId.slice(index + 1);
+    }
+
+    function getDetailedPlayerInfo(e){
+        console.log(findBtnId(e.target.id));
+        let clickedPlayer = findBtnId(e.target.id);
+        clearFriendSection();
+        displayDetailedPlayer(clickedPlayer);
+    }
+
+    function clearFriendSection(){
+         mainSection.innerHTML = ""
+    }
+
     function displayPlayers(){
         for (let player of playerInfo){
             displayPlayerInfo(player);
         }
     }
+
+    function displayDetailedPlayer(playerID){
+        for (let player of playerInfo){
+            if(player.id === parseInt(playerID)){
+                for(let i = 0; i < player.topChampionIDs.length; i++){
+                    displayDetailedPlayerInfo(player, i);
+                }
+            }
+        }
+    }
+
     function displayPlayerInfo(player){
         let html = "";
-        html += `<div class="friendTile">`
+        html += `<div class="friendTile" id ="playerID-${player.id}" 
+                style="background-image: url('https://ddragon.leagueoflegends.com/cdn/img/champion/splash/${player.topChampionNames[0]}_0.jpg')">`
 
-        html += `<div class="friendTileTop"  style="background-image: url('https://ddragon.leagueoflegends.com/cdn/img/champion/splash/${player.topChampionNames[0]}_0.jpg')">`
+        html += `<div class="friendTileTop">`
         html += `</div>`//end friendTileTop
 
         html += `<div class="friendTileBottom">`
@@ -207,6 +243,38 @@
 
         html += `</div>`//end player Tile
         mainSection.innerHTML += html;
+
+        playerBtns.push(`#playerID-${player.id}`);
+    }
+
+    function displayDetailedPlayerInfo(player, num){
+        let html = "";
+        html += `<div class="championTile"
+                style="background-image: url('https://ddragon.leagueoflegends.com/cdn/img/champion/loading/${player.topChampionNames[num]}_0.jpg')">`
+
+        //http://ddragon.leagueoflegends.com/cdn/img/champion/loading/Aatrox_0.jpg
+
+        html += `<div class="championTileTop">`
+        html += `</div>`//end friendTileTop
+
+        html += `<div class="championTileBottom">`
+        html += `<p>${player.topChampionNames[num]}</p>`
+        //html += `<p>Wins: ${player.rankWins} Losses:  ${player.rankLosses}</p>`
+        html += `<p>${player.topChampionPoints[num]}</p>`
+        html += `</div>`//end friendTileBottom
+
+        //Friend mid section, name and icon
+        html += `<div class="championTileMid">`
+        html += `<div class="championIcon">`
+        html += `<p>${player.topChampionLevels[num]}</p>`
+        html += `<div></div>`
+        html += `</div>`//end friendIcon
+        html += `</div>`//end friendTileMid
+
+        html += `</div>`//end player Tile
+        mainSection.innerHTML += html;
+
+        // playerBtns.push(`#playerID-${player.id}`);
     }
 
     /*
@@ -228,6 +296,7 @@
 
     let playerInfo = [];
     let champInfo = [];
+    let playerBtns = [];
 
     getDbData();
 })();

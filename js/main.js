@@ -1,23 +1,29 @@
 (function () {
     "use strict";
-    $.ajax("/assets/data/players.json")
-        .done(function (data, status, jqXhr){
-        setPlayerInfo(data);
-        getPlayerInfo();
-        }
-    );
 
-    function setPlayerInfo(playerData) {
-        playerData.forEach((player) => {
-            let person = {
-                'name' : player.player_name,
-                'accountID' : player.account_id,
-                'summonerID' : player.summoner_id,
-                'puuID' : player.puu_id,
-                'roles' : player.role
-            };
-            playerInfo.push(person);
+    function getDbData() {
+        fetch(dbUrl).then(response => {
+            return response.json();
+        }).then(data => {
+            setPlayerInfoArray(data)
+        }).then(() => {
+            displayPlayers();
+        }).catch((err) => {
+            console.log(err);
         });
+    }
+
+    function setPlayerInfoArray(playerData){
+        playerInfo = [];
+        for(let player of playerData){
+            playerInfo.push(player);
+        }
+    }
+
+    function displayPlayers(){
+        for (let player of playerInfo){
+            displayPlayerInfo(player);
+        }
     }
 
     function displayPlayerInfo(player){
@@ -42,30 +48,13 @@
         playerNameTiles.innerHTML += html;
     }
 
-
-
-    function getPlayerInfo(){
-        playerInfo.forEach((player) => {
-            for(let i = 0; i < player.summonerID.length; i++){
-                let summonerID = player.summonerID[i]
-                $.get(
-                    `https://na1.api.riotgames.com/lol/summoner/v4/summoners/${summonerID}?api_key=${RIOT_KEY}`
-                ).done(function(data){
-                    player.profileIconID = data.profileIconId;
-                    player.summonerLevel = data.summonerLevel;
-                    player.summonerName = data.name;
-                    displayPlayerInfo(player);
-                });
-            }
-        });
-    }
-
-
     /*
     ========================================
     Variables and Arrays
     ========================================
      */
+    const dbUrl = "https://chain-torch-terrier.glitch.me/players/"
     const playerNameTiles = document.querySelector("#trackedFriendsSidebar");
     let playerInfo = [];
+    getDbData();
 })();
