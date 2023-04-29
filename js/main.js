@@ -32,7 +32,7 @@
 
         //Player icon and level section
         html += `<div class="playerIcon">`
-        html += `<img src="http://ddragon.leagueoflegends.com/cdn/13.7.1/img/profileicon/${player.profileIconID}.png" alt="${player.name}'s profile icon">`
+        html += `<img src="assets/dragontail-${dtv}/${dtv}/img/profileicon/${player.profileIconID}.png" alt="${player.name}'s profile icon">`
         html += `<div class="summonerLevelPill">`
         html += `<p class="summonerLevel">${player.summonerLevel}</p>`
         html += `</div>`//end player summoner level
@@ -55,6 +55,7 @@
      */
     const dbUrl = "https://chain-torch-terrier.glitch.me/players/"
     const playerNameTiles = document.querySelector("#trackedFriendsSidebar");
+    const dtv = "13.8.1" //current dragontail version for images and info
     let playerInfo = [];
     getDbData();
 })();

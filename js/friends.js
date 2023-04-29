@@ -6,7 +6,8 @@
     function getDbData() {
         Promise.all([
             fetch(dbUrl),
-            fetch(champJSON)
+            fetch(champJSON),
+            fetch("http://ddragon.leagueoflegends.com/cdn/13.8.1/data/en_US/champion.json")
         ]).then(responses => {
             return Promise.all(responses.map(function (response) {
                 return response.json();
@@ -14,6 +15,7 @@
         }).then(data => { //The data is an array of data in order of the fetches.
             setPlayerInfoArray(data[0]);
             setChampInfoArray(data[1]);
+            setChampDBInfoArray(data[2]);
         }).then(() => {
             displayPlayers();
 
@@ -31,11 +33,19 @@
         }
     }
 
-    function setChampInfoArray(champData){
+    function setChampInfoArray(champKeyData){
+        champKeys = [];
+        for(let champKey of champKeyData){
+            champKeys.push(champKey);
+        }
+    }
+
+    function setChampDBInfoArray(champData){
         champInfo = [];
-        for(let champ of champData){
+        for(let champ of Object.entries(champData.data)){
             champInfo.push(champ);
         }
+        console.log(champInfo);
     }
 
     function getEveryPlayersRiotInfo() {
@@ -43,20 +53,12 @@
         for (let player of playerInfo) {
             setTimeout(() => {
                 getRiotData(player.summonerID, player)
-                // console.log("Player out: ");
-                // console.log(player);
-                // console.log(player.summonerID);
-                // console.log("===============================");
             }, delay);
             delay += 500; // Increase the delay by 500 milliseconds for each player
         }
     }
 
     function getRiotData(summonerID, player) {
-        // console.log("Player in: ");
-        // console.log(player);
-        // console.log(summonerID);
-        // console.log("================");
         Promise.all([
             fetch(`https://na1.api.riotgames.com/lol/league/v4/entries/by-summoner/${summonerID}?api_key=${RIOT_KEY}`),
             fetch(`https://na1.api.riotgames.com/lol/summoner/v4/summoners/${summonerID}?api_key=${RIOT_KEY}`),
@@ -110,7 +112,7 @@
 
         for(let i = 0; i < data.length; i++){
             championIDs.push(data[i].championId);
-            let championName = getChampionInfo(data[i].championId);
+            let championName = getChampionNameFromKey(data[i].championId);
             championNames.push(championName);
             championLevels.push(data[i].championLevel);
             championPoints.push(data[i].championPoints);
@@ -136,11 +138,21 @@
             });
     }
 
-    function getChampionInfo(championKey) {
-        for (const champ of champInfo) {
+    function getChampionNameFromKey(championKey) {
+        for (const champ of champKeys) {
             if (parseInt(champ.key) === parseInt(championKey)) {
                 return champ.name;
             }
+        }
+        console.log("not found");
+        return undefined;
+    }
+
+    function getChampionInfo(championName) {
+        console.log(championName);
+        for (const champ of champInfo) {
+            if (champ[0] === championName) {
+                return champ[1].title;            }
         }
         console.log("not found");
         return undefined;
@@ -197,6 +209,14 @@
         displayDetailedPlayer(clickedPlayer);
     }
 
+    function getDetailedChampInfo(e){
+        console.log(findBtnId(e.target.id));
+        let clickedChamp = findBtnId(e.target.id);
+        //clearFriendSection();
+        // displayDetailedPlayer(clickedChamp);
+        console.log(getChampionInfo(getChampionNameFromKey(clickedChamp)));
+    }
+
     function clearFriendSection(){
          mainSection.innerHTML = ""
     }
@@ -215,6 +235,12 @@
                 }
             }
         }
+        console.log(champBtns);
+        createButtons(champBtns, getDetailedChampInfo)
+    }
+
+    function handleBigNumber(num){
+        return num.toLocaleString();
     }
 
     function displayPlayerInfo(player){
@@ -233,7 +259,7 @@
         //Friend mid section, name and icon
         html += `<div class="friendTileMid">`
         html += `<div class="friendIcon">`
-        html += `<img src="http://ddragon.leagueoflegends.com/cdn/13.7.1/img/profileicon/${player.profileIconID}.png" alt="${player.name}'s profile icon">`
+        html += `<img src="assets/dragontail-${dtv}/${dtv}/img/profileicon/${player.profileIconID}.png" alt="${player.name}'s profile icon">`
         html += `</div>`//end friendIcon
         html += `<div class="friendNames">`
         html += `<p class="fSummonerName">${player.summonerName}</p>`
@@ -249,18 +275,14 @@
 
     function displayDetailedPlayerInfo(player, num){
         let html = "";
-        html += `<div class="championTile"
-                style="background-image: url('https://ddragon.leagueoflegends.com/cdn/img/champion/loading/${player.topChampionNames[num]}_0.jpg')">`
-
-        //http://ddragon.leagueoflegends.com/cdn/img/champion/loading/Aatrox_0.jpg
+        html += `<div class="championTile" id ="champID-${player.topChampionIDs[num]}">`
 
         html += `<div class="championTileTop">`
+        html += `<img src="assets/dragontail-${dtv}/img/champion/loading/${player.topChampionNames[num]}_0.jpg" alt="${player.topChampionNames[num]}'s image">`
         html += `</div>`//end friendTileTop
 
         html += `<div class="championTileBottom">`
-        html += `<p>${player.topChampionNames[num]}</p>`
-        //html += `<p>Wins: ${player.rankWins} Losses:  ${player.rankLosses}</p>`
-        html += `<p>${player.topChampionPoints[num]}</p>`
+        html += `<p class="championPoints">${handleBigNumber(player.topChampionPoints[num])}</p>`
         html += `</div>`//end friendTileBottom
 
         //Friend mid section, name and icon
@@ -274,7 +296,7 @@
         html += `</div>`//end player Tile
         mainSection.innerHTML += html;
 
-        // playerBtns.push(`#playerID-${player.id}`);
+        champBtns.push(`#champID-${player.topChampionIDs[num]}`);
     }
 
     /*
@@ -284,6 +306,7 @@
      */
     const dbUrl = "https://chain-torch-terrier.glitch.me/players/"
     const champJSON = "/assets/data/championKeys.json";
+    const dtv = "13.8.1" //current dragontail version for images and info
     const mainSection = document.querySelector("#friendSection");
 
     const refreshIconsButton = document.querySelector("#refreshIconsBtn");
@@ -295,8 +318,10 @@
     refreshRanksButton.addEventListener("click", refreshRanks);
 
     let playerInfo = [];
+    let champKeys = [];
     let champInfo = [];
     let playerBtns = [];
+    let champBtns = [];
 
     getDbData();
 })();

@@ -1,6 +1,6 @@
 
 //the riot api key
-const RIOT_KEY = "RGAPI-b09d5ea0-519a-4bcd-82ac-df5a57095758";
+const RIOT_KEY = "RGAPI-e6834a21-139d-461b-9676-6448775ba15a";
 
 /*
 ===================================================
